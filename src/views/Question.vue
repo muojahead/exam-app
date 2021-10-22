@@ -154,6 +154,7 @@ export default {
         if (questionInArray) {
           const index = this.questionsResults.indexOf(questionInArray);
           this.questionsResults[index].userAnswer = question.userAnswer;
+          this.questionsResults[index].point = question.point;
         } else {
           this.questionsResults.push(question);
         }
