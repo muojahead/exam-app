@@ -8,11 +8,11 @@ const routes = [{
     },
     { path: "/question/:id", name: "Question", component: Question },
     { path: "/question", redirect: "/question/1" },
-    { path: "/", redirect: "/question/1" },
+    { path: '/:n(.*)', redirect: '/question/1' }
 ];
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory(process.env.BASE_URL),
     routes,
 });
 

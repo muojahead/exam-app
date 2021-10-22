@@ -11,6 +11,7 @@
 import axios from "axios";
 export default {
   async mounted() {
+    this.$router.push("/question/1");
     const result = await axios.get(
       "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple"
     );
