@@ -32,7 +32,7 @@
           <li class="nav-item">
             <a
               @click="moveToResults"
-              :class="['nav-link', controls ? 'active' : '']"
+              :class="['nav-link results', controls ? 'active' : '']"
               >Results</a
             >
           </li>
@@ -122,7 +122,9 @@ export default {
 .bg-secondary {
   background-color: #323a41 !important;
 }
-
+.navbar-brand {
+  cursor: pointer;
+}
 .nav-link {
   font-weight: 300;
   color: #fff;
@@ -139,5 +141,12 @@ export default {
 .nav-link.active {
   font-weight: bold;
   opacity: 1;
+  cursor: default !important;
+}
+.results {
+  cursor: default !important;
+}
+.results.active {
+  cursor: pointer !important;
 }
 </style>
