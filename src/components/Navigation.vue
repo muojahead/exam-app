@@ -16,7 +16,9 @@
             <a class="nav-link btns" @click="onPrevious">Previous</a>
           </li>
           <li class="nav-item counter">
-            <a class="nav-link active" v-if="!controls"
+            <a
+              :class="['nav-link ', isControlBtnsNeeded ? 'active' : '']"
+              v-if="!controls"
               ><fa
                 v-if="icon == 'check-circle'"
                 :icon="['fas', icon]"
@@ -32,7 +34,10 @@
           <li class="nav-item">
             <a
               @click="moveToResults"
-              :class="['nav-link results', controls ? 'active' : '']"
+              :class="[
+                'nav-link results',
+                !isControlBtnsNeeded ? 'active' : '',
+              ]"
               >Results</a
             >
           </li>
@@ -108,7 +113,7 @@ export default {
       this.$emit("prev");
     },
     moveToResults() {
-      if (this.currentQuestion == 10 || this.resultsDataExist != 0) {
+      if (this.currentQuestion == 10) {
         this.$router.push("/results");
       } else {
         return false;
