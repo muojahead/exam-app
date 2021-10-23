@@ -1,7 +1,7 @@
 <template>
   <div class="back-shdow">
     <div class="spinner-border text-center m-5" role="status">
-      <span class="sr-only">Loading...</span>
+      <span class="sr-only"></span>
     </div>
   </div>
 </template>

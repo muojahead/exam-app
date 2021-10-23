@@ -2,7 +2,7 @@
   <div>
     <navigation-app @next="onNext" @prev="onPrevious" />
     <div class="container">
-      <div class="card m-md-5 m-2" v-if="isQuestionsLoaded">
+      <div class="card m-md-5 m-2" v-if="!questionsFinshed">
         <div class="card-header">
           <h2 v-html="question"></h2>
         </div>
@@ -56,6 +56,8 @@
 <script>
 import loader from "../components/Loading.vue";
 import { mapGetters } from "vuex";
+import axios from "axios";
+
 export default {
   components: {
     loader,
@@ -76,6 +78,7 @@ export default {
       questionsData: "questionsGetter",
       cureentQuestion: "currentQuestionGetter",
       questionsCount: "questionsCountGetter",
+      questionsFinshed: "questionsFinshedGetter",
     }),
     question() {
       if (this.questionsData[this.cureentQuestion]) {
@@ -169,8 +172,7 @@ export default {
       this.$router.push(`/question/${this.cureentQuestion}`);
       // Finall Questions Step and Go To Results
       if (this.cureentQuestion == this.questionsData.length) {
-        this.$store.commit("dataLoadedMutation", false);
-        let seconds = 6;
+        let seconds = 4;
         this.msgType = "success";
         this.alertMsg = `Questions Finished, Go To Results Page, you will auto redirect after <span style='color: red;'>${
           seconds - 1
@@ -203,15 +205,26 @@ export default {
       }
       this.$store.commit("currentQuestionMutation", 0);
     }
-  },
-  mounted() {
     if (!this.isQuestionsLoaded) {
-      this.alertMsg = "";
+      // this.$store.commit("dataLoadedMutation", false)
       setTimeout(() => {
         this.msgType = "danger";
         this.alertMsg =
           "Unfortunately something bad happened that we didn't expect, maybe the internet is too slow or the server is not responding try to refresh the page.";
-      }, 15000);
+      }, 10000);
+    }
+  },
+  async mounted() {
+    const result = await axios.get(
+      "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple"
+    );
+    if (result.status == 200 && result.data.results.length != 0) {
+      this.$store.commit("questionsMutation", result.data.results);
+      this.$store.commit("dataLoadedMutation", true);
+      this.$store.commit("questionsFinshedMutation", false);
+    } else {
+      this.$store.commit("dataLoadedMutation", false);
+      this.$store.commit("questionsFinshedMutation", true);
     }
   },
 };

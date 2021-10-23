@@ -2,7 +2,7 @@
   <nav class="navbar bg-secondary navbar-dark">
     <div class="container">
       <a @click="goToMain" class="navbar-brand"> <h3>Logo</h3> </a>
-      <ul class="navbar-nav">
+      <ul class="navbar-nav" v-if="isDataLoaded">
         <li class="nav-item" v-if="isControlBtnsNeeded">
           <a class="nav-link btns" @click="onPrevious">Previous</a>
         </li>
@@ -61,6 +61,7 @@ export default {
       currentQuestion: "currentQuestionGetter",
       questionsCount: "questionsCountGetter",
       resultsDataExist: "resultsDataLengthGetter",
+      isDataLoaded: "dataLoadedGetter",
     }),
     icon() {
       if (this.currentQuestion == 10) {
@@ -86,6 +87,7 @@ export default {
     },
     leaveReults() {
       this.$store.commit("resultsDataMutation", []);
+      this.$store.commit("questionsMutation", []);
       this.$router.push("/");
     },
     stayInResults() {
