@@ -28,6 +28,7 @@ export default {
 * {
   font-family: "Nunito", sans-serif;
 }
+
 /* #region of Vue Transition Component Part */
 .slide-enter-from {
   opacity: 0;

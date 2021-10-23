@@ -79,8 +79,10 @@ export default {
 <style scoped lang="scss">
 .card-body {
   padding: 0;
+  overflow-x: auto !important;
 }
 table {
+  min-width: 700px;
   margin-bottom: 0 !important;
   thead {
     background-color: var(--bs-gray) !important;

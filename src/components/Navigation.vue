@@ -1,48 +1,33 @@
 <template>
-  <nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+  <nav class="navbar bg-secondary navbar-dark">
     <div class="container">
       <a @click="goToMain" class="navbar-brand"> <h3>Logo</h3> </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarMneu"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarMneu">
-        <ul class="navbar-nav">
-          <li class="nav-item" v-if="isControlBtnsNeeded">
-            <a class="nav-link btns" @click="onPrevious">Previous</a>
-          </li>
-          <li class="nav-item counter">
-            <a
-              :class="['nav-link ', isControlBtnsNeeded ? 'active' : '']"
-              v-if="!controls"
-              ><fa
-                v-if="icon == 'check-circle'"
-                :icon="['fas', icon]"
-                style="color: green"
-              ></fa>
-              <fa v-else :icon="['fas', icon]" style="color: yellow"></fa>
-              {{ questionsCount }} / {{ currentQuestion }}</a
-            >
-          </li>
-          <li class="nav-item" v-if="isControlBtnsNeeded">
-            <a class="btns nav-link" @click="onNext">Next</a>
-          </li>
-          <li class="nav-item">
-            <a
-              @click="moveToResults"
-              :class="[
-                'nav-link results',
-                !isControlBtnsNeeded ? 'active' : '',
-              ]"
-              >Results</a
-            >
-          </li>
-        </ul>
-      </div>
+      <ul class="navbar-nav">
+        <li class="nav-item" v-if="isControlBtnsNeeded">
+          <a class="nav-link btns" @click="onPrevious">Previous</a>
+        </li>
+        <li class="nav-item counter" v-if="!controls">
+          <a :class="['nav-link ', isControlBtnsNeeded ? 'active' : '']"
+            ><fa
+              v-if="icon == 'check-circle'"
+              :icon="['fas', icon]"
+              style="color: green"
+            ></fa>
+            <fa v-else :icon="['fas', icon]" style="color: yellow"></fa>
+            {{ questionsCount }} / {{ currentQuestion }}</a
+          >
+        </li>
+        <li class="nav-item" v-if="isControlBtnsNeeded">
+          <a class="btns nav-link" @click="onNext">Next</a>
+        </li>
+        <li class="nav-item">
+          <a
+            @click="moveToResults"
+            :class="['nav-link results', !isControlBtnsNeeded ? 'active' : '']"
+            >Results</a
+          >
+        </li>
+      </ul>
     </div>
     <teleport to="body">
       <transition name="fade">
@@ -127,31 +112,52 @@ export default {
 .bg-secondary {
   background-color: #323a41 !important;
 }
-.navbar-brand {
-  cursor: pointer;
-}
-.nav-link {
-  font-weight: 300;
-  color: #fff;
-  opacity: 0.7;
-  cursor: pointer;
-}
-.nav-link.btns {
-  font-weight: 600;
-  opacity: 0.9;
-  &:hover {
-    opacity: 1;
+.container {
+  justify-content: flex-start;
+  .navbar-brand {
+    cursor: pointer;
+  }
+  .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    .nav-link {
+      font-weight: 300;
+      color: #fff;
+      opacity: 0.7;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .nav-link.btns {
+      font-weight: 600;
+      opacity: 0.9;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    .nav-link.active {
+      font-weight: bold;
+      opacity: 1;
+      cursor: default !important;
+    }
+    .results {
+      cursor: default !important;
+    }
+    .results.active {
+      cursor: pointer !important;
+    }
   }
 }
-.nav-link.active {
-  font-weight: bold;
-  opacity: 1;
-  cursor: default !important;
-}
-.results {
-  cursor: default !important;
-}
-.results.active {
-  cursor: pointer !important;
+@media (max-width: 540px) {
+  .navbar .navbar-brand {
+    width: 100%;
+    text-align: center;
+    border-bottom: 0.5px solid var(--bs-gray);
+  }
+  .navbar-nav {
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+  }
 }
 </style>
