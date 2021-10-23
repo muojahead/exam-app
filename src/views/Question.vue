@@ -84,6 +84,7 @@ export default {
       if (this.questionsData[this.cureentQuestion]) {
         return (
           this.cureentQuestion +
+          1 +
           " - " +
           this.questionsData[this.cureentQuestion].question
         );
@@ -169,7 +170,7 @@ export default {
       // Get Next Question
       this.$store.commit("currentQuestionMutation", this.cureentQuestion + 1);
       this.selectedAnswer = "";
-      this.$router.push(`/question/${this.cureentQuestion}`);
+      this.$router.push(`/question/${this.cureentQuestion + 1}`);
       // Finall Questions Step and Go To Results
       if (this.cureentQuestion == this.questionsData.length) {
         let seconds = 4;

@@ -14,7 +14,10 @@
               style="color: green"
             ></fa>
             <fa v-else :icon="['fas', icon]" style="color: yellow"></fa>
-            {{ questionsCount }} / {{ currentQuestion }}</a
+            {{ questionsCount }} /
+            {{
+              currentQuestion + 1 > 10 ? currentQuestion : currentQuestion + 1
+            }}</a
           >
         </li>
         <li class="nav-item" v-if="isControlBtnsNeeded">
@@ -94,6 +97,9 @@ export default {
       this.leavePage = false;
     },
     onNext() {
+      if (this.currentQuestion > 10) {
+        this.currentQuestion = 10;
+      }
       this.$emit("next");
     },
     onPrevious() {
