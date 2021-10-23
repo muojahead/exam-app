@@ -7,9 +7,9 @@ const routes = [{
         component: Results,
     },
     { path: '/', component: Question },
-    { path: "/question/:id", name: "Question", component: Question },
-    { path: "/question", redirect: "/question/1" },
-    { path: '/:n(.*)', redirect: '/question/1' }
+    { path: "/question/:questionIndex", name: "Question", component: Question },
+    { path: "/question", redirect: "/question/1" }
+    // { path: '/:n(.*)', redirect: '/question/1' }
 ];
 
 const router = createRouter({
