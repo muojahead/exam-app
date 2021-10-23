@@ -101,7 +101,7 @@ export default {
     },
     leaveReults() {
       this.$store.commit("resultsDataMutation", []);
-      this.$router.push("/question/1");
+      this.$router.push("/");
     },
     stayInResults() {
       this.leavePage = false;
